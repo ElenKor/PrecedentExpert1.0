@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PrecedentExpert.MainPage"> 
+
+    <ContentPage.Resources>
+        <!-- Style for the glassmorphism effect -->
+        <Style x:Key="GlassButton" TargetType="Button">
+            <Setter Property="TextColor" Value="White"/>
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Padding" Value="15"/>
+            <Setter Property="CornerRadius" Value="20"/>
+            <!-- Add more styling properties as needed -->
+        </Style>
+    </ContentPage.Resources>
+
+   
+    <Grid>
+    <ScrollView>
+        <VerticalStackLayout Padding="30,0" Spacing="25">
+        <Grid>
+           <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Логотип -->
+        <Image Grid.Column="0"
+               Source="logotype2.png"
+               HeightRequest="185"
+               Aspect="AspectFit"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"
+               SemanticProperties.Description="Logo description" />
+
+        <!-- Кнопка "О приложении" -->
+        <Button x:Name="AboutAppBtn"
+                Grid.Column="1"
+                Text="О приложении"
+                FontSize="Micro"
+                WidthRequest="100"
+                HeightRequest="30"
+                HorizontalOptions="End"
+                VerticalOptions="Start"
+                Clicked="OnAboutAppClicked"
+                Padding="0"
+                Margin="10" />
+        </Grid>                     
+
+          <!--   <Label Text="Добро пожаловать в PrecedentExpert"
+                   Style="{StaticResource Headline}"
+                   SemanticProperties.HeadingLevel="Level1" />  -->
+
+    
+            <!-- Buttons Container -->
+           <Frame WidthRequest="1200" HeightRequest="200" 
+                HorizontalOptions="Center" VerticalOptions="CenterAndExpand"
+                BackgroundColor="#80F0F0F0" Padding="10" CornerRadius="20">
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Button to configure a new object -->
+                    <Button Grid.Column="0"
+                            Style="{StaticResource GlassButton}"
+                            Text="Настроить новый объект"
+                            HorizontalOptions="FillAndExpand" 
+                            Margin="10"
+                            Clicked="OnAddObjectClicked"/>
+                        <!-- Button to find a solution -->
+                    <Button Grid.Column="1"
+                            Style="{StaticResource GlassButton}"
+                            Text="Поиск решения"
+                            HorizontalOptions="FillAndExpand" 
+                            Margin="10"
+                            Clicked="OnFindSolutionClicked"/>
+                    <!-- Button to add a new precedent -->
+                    <Button Grid.Column="2"
+                            Style="{StaticResource GlassButton}"
+                            Text="Добавить новый прецедент"
+                            HorizontalOptions="FillAndExpand" 
+                            Margin="10"
+                            Clicked="OnAddPrecedentClicked"/>
+                            <!-- Button to add a new precedent -->
+                   <Button Grid.Column="3"
+                            Style="{StaticResource GlassButton}"
+                            Text="Просмотр базы прецедентов"
+                            LineBreakMode="WordWrap"
+                            HorizontalOptions="FillAndExpand" 
+                            Margin="10"
+                            Clicked="OnViewDbPrecedentClicked"/>
+                </Grid>
+            </Frame>
+        </VerticalStackLayout>
+    </ScrollView>
+    </Grid>
+
+</ContentPage>

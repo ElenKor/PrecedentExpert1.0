@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:PrecedentExpert.ViewModels;assembly=PrecedentExpert"
+             x:Class="PrecedentExpert.Views.AddObjectView">
+    <ScrollView>
+        <VerticalStackLayout
+            Padding="30,0"
+            Spacing="25">
+            <Image
+                Source="logotype2.png"
+                HeightRequest="185"
+                Aspect="AspectFit"
+                SemanticProperties.Description="dot net bot in a race car number eight" />
+
+            <Label
+                Text="Добавление объекта"
+                Style="{StaticResource Headline}"
+                SemanticProperties.HeadingLevel="Level1" />
+
+            <Label
+                Text="Укажите название объекта"
+                Style="{StaticResource SubHeadline}"
+                SemanticProperties.HeadingLevel="Level2" />
+
+             <!-- Поле ввода для Name -->
+            <Entry Placeholder="Название объекта" x:Name="NameEntry" Text="{Binding NewObjectName}" />
+
+            <Button
+                x:Name="Next"
+                Text="Далее" 
+                Command="{Binding AddObjectCommand}"
+                SemanticProperties.Hint="Go to next page"
+                HorizontalOptions="Fill" />
+            <Button
+                x:Name="Back"
+                Text="Отмена" 
+                Clicked="OnBackBtnlicked"
+                SemanticProperties.Hint="Back to MainPage"
+                HorizontalOptions="Fill" />   
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

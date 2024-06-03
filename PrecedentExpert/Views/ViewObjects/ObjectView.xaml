@@ -1,0 +1,184 @@
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:PrecedentExpert.ViewModels;assembly=PrecedentExpert"
+             x:Class="PrecedentExpert.Views.ObjectView">
+    <Grid>
+        <!-- Левая часть: выбор объекта -->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>  
+        
+        <ScrollView Grid.Column="0">
+            <VerticalStackLayout Padding="30,0" Spacing="25">
+                <Image
+                    Source="logotype2.png"
+                    HeightRequest="185"
+                    Aspect="AspectFit"
+                    SemanticProperties.Description="dot net bot in a race car number eight" />
+
+                <Label
+                    Text="Выберите объект для просмотра содержимого базы прецедентов"
+                    Style="{StaticResource Headline}"
+                    SemanticProperties.HeadingLevel="Level1" />
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <Label
+                        Grid.Column="0"
+                        Text="Выбранный объект: "
+                        HorizontalOptions="Start"
+                        VerticalOptions="Center" />
+
+                    <!-- Выбор объекта из списка -->
+                    <Picker
+                        Grid.Column="1"
+                        Title="Объект не выбран"
+                        ItemsSource="{Binding UserInputs}"
+                        SelectedItem="{Binding SelectedObject, Mode=TwoWay}"
+                        ItemDisplayBinding="{Binding Name}"
+                        HorizontalOptions="FillAndExpand" />
+
+                    <!-- Кнопка для редактирования объекта -->
+                    <ImageButton
+                        Grid.Column="2"
+                        Source="edit_icon2.png"
+                        WidthRequest="15"
+                        HeightRequest="20"
+                        Scale="0.5"
+                        HorizontalOptions="End"
+                        VerticalOptions="Center"
+                        Command="{Binding EditObjectNameCommand}"
+                        CommandParameter="{Binding SelectedObject}" />
+
+                    <!-- Кнопка для удаления объекта -->
+                    <ImageButton
+                        Grid.Column="3"
+                        Source="delete_icon4.png"
+                        WidthRequest="15"
+                        HeightRequest="20"
+                        Scale="0.5"
+                        HorizontalOptions="End"
+                        VerticalOptions="Center"
+                        Command="{Binding DeleteObjectCommand}"
+                        CommandParameter="{Binding SelectedObject}" />
+                </Grid>
+
+                <CollectionView ItemsSource="{Binding UserInputs}"
+                                SelectionMode="Single"
+                                SelectedItem="{Binding SelectedObject}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame Padding="2" Margin="2">
+                                <StackLayout Padding="10" Orientation="Horizontal">
+                                    <Label Text="{Binding Name}" FontAttributes="Bold" HorizontalOptions="StartAndExpand" />
+                                </StackLayout>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+                <Button
+                    x:Name="Next"
+                    Text="Просмотр" 
+                    Command="{Binding LoadSituationSolutionVariablesCommand}"
+                    SemanticProperties.Hint="Go to next page"
+                    HorizontalOptions="Fill" />
+                <Button
+                    x:Name="Back"
+                    Text="Отмена" 
+                    Clicked="OnBackBtnClicked"
+                    SemanticProperties.Hint="Back to MainPage"
+                    HorizontalOptions="Fill" />
+                    </VerticalStackLayout>
+                    </ScrollView>
+
+<!-- Правая часть: параметры ситуации, параметры решений и прецеденты -->
+<ScrollView Grid.Column="1">
+<StackLayout>
+    <!-- Список параметров ситуации -->
+    <BoxView Color="#512BD4" HeightRequest="5" Margin="0,0,0,5" />
+    <Label Text="Список параметров, характеризующих ситуации" Style="{StaticResource Headline}" SemanticProperties.HeadingLevel="Level1" />
+    <BoxView Color="#512BD4" HeightRequest="5" Margin="0,0,0,5" />
+    <CollectionView ItemsSource="{Binding SituationParams}">
+        <CollectionView.ItemsLayout>
+            <LinearItemsLayout Orientation="Vertical" ItemSpacing="10"/>
+        </CollectionView.ItemsLayout>
+        <CollectionView.ItemTemplate>
+            <DataTemplate>
+                <Frame Padding="2" Margin="2">
+                    <StackLayout Padding="10" Orientation="Horizontal">
+                        <Label Text="{Binding}" FontAttributes="Bold" HorizontalOptions="StartAndExpand" />
+                    </StackLayout>
+                </Frame>
+            </DataTemplate>
+        </CollectionView.ItemTemplate>
+    </CollectionView>
+
+    <!-- Список параметров решений -->
+    <BoxView Color="#512BD4" HeightRequest="5" Margin="0,0,0,5" />
+    <Label Text="Список параметров, характеризующих решения" Style="{StaticResource Headline}" SemanticProperties.HeadingLevel="Level1" />
+    <BoxView Color="#512BD4" HeightRequest="5" Margin="0,0,0,5" />
+    <CollectionView ItemsSource="{Binding SolutionParams}">
+        <CollectionView.ItemsLayout>
+            <LinearItemsLayout Orientation="Vertical" ItemSpacing="10"/>
+        </CollectionView.ItemsLayout>
+        <CollectionView.ItemTemplate>
+            <DataTemplate>
+                <Frame Padding="2" Margin="2">
+                    <StackLayout Padding="10" Orientation="Horizontal">
+                        <Label Text="{Binding}" FontAttributes="Bold" HorizontalOptions="StartAndExpand" />
+                    </StackLayout>
+                </Frame>
+            </DataTemplate>
+        </CollectionView.ItemTemplate>
+    </CollectionView>
+
+    <!-- Список прецедентов -->
+    <BoxView Color="#512BD4" HeightRequest="5" Margin="0,0,0,5" />
+    <Label Text="Список прецедентов" Style="{StaticResource Headline}" SemanticProperties.HeadingLevel="Level1" />
+    <BoxView Color="#512BD4" HeightRequest="5" Margin="0,0,0,5" />
+    <CollectionView ItemsSource="{Binding Precedents}" SelectionMode="Single" SelectedItem="{Binding SelectedPrecedent}">
+        <CollectionView.ItemsLayout>
+            <LinearItemsLayout Orientation="Vertical" ItemSpacing="10"/>
+        </CollectionView.ItemsLayout>
+        <CollectionView.ItemTemplate>
+            <DataTemplate>
+                <Frame Padding="2" Margin="2">
+                    <StackLayout Padding="10" Orientation="Horizontal">
+                        <Label Text="{Binding Id}" FontAttributes="Bold" HorizontalOptions="StartAndExpand" />
+                    </StackLayout>
+                </Frame>
+            </DataTemplate>
+        </CollectionView.ItemTemplate>
+    </CollectionView>
+
+    <!-- Детали выбранного прецедента -->
+    <BoxView Color="#512BD4" HeightRequest="5" Margin="0,0,0,5" />
+    <Label Text="Детали прецедента" Style="{StaticResource Headline}" SemanticProperties.HeadingLevel="Level1" />
+    <BoxView Color="#512BD4" HeightRequest="5" Margin="0,0,0,5" />
+    <CollectionView ItemsSource="{Binding PrecedentDetails}">
+        <CollectionView.ItemsLayout>
+            <LinearItemsLayout Orientation="Vertical" ItemSpacing="10"/>
+        </CollectionView.ItemsLayout>
+        <CollectionView.ItemTemplate>
+            <DataTemplate>
+                <Frame Padding="2" Margin="2">
+                    <StackLayout Padding="10" Orientation="Horizontal">
+                        <Label Text="{Binding}" FontAttributes="Bold" HorizontalOptions="StartAndExpand" />
+                    </StackLayout>
+                </Frame>
+            </DataTemplate>
+        </CollectionView.ItemTemplate>
+    </CollectionView>
+    
+</StackLayout>
+</ScrollView>
+</Grid>
+</ContentPage>

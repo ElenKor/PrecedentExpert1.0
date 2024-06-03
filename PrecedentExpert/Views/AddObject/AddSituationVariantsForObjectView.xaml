@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:PrecedentExpert.ViewModels;assembly=PrecedentExpert"
+             x:Class="PrecedentExpert.Views.AddSituationVariantsForObjectView"
+             x:Name="thisView">
+    <ScrollView>
+        <StackLayout Padding="30,0" Spacing="25">
+            <Image Source="logotype2.png" HeightRequest="185" Aspect="AspectFit"
+                   SemanticProperties.Description="dot net bot in a race car number eight" />
+
+            <Label Text="Добавление параметров ситуации" 
+                   Style="{StaticResource Headline}" 
+                   SemanticProperties.HeadingLevel="Level1" />
+
+            <Label Text="Укажите количество параметров ситуации для текущего объекта" 
+                   Style="{StaticResource SubHeadline}" 
+                   SemanticProperties.HeadingLevel="Level2" />
+
+            <Entry x:Name="ParameterCountEntry" 
+                   Placeholder="Введите количество параметров, характеризующих решение" 
+                   Keyboard="Numeric" 
+                   TextChanged="OnParameterCountChanged" />
+
+            <CollectionView ItemsSource="{Binding SituationVariableNames}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <VerticalStackLayout>
+                            <Entry Placeholder="Название параметра"
+                                Text="{Binding Name, Mode=TwoWay}"
+                                TextChanged="OnSituationVariableTextChanged" />
+                        </VerticalStackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Button x:Name="Next" Text="Далее" 
+                    Command="{Binding PrepareForNextStepCommand}"
+                    SemanticProperties.Hint="Proceed to the next step" 
+                    HorizontalOptions="Fill" />
+            <Button x:Name="Back" Text="Назад" 
+                    Clicked="OnBackBtnlicked" 
+                    SemanticProperties.Hint="Return to the previous page" 
+                    HorizontalOptions="Fill" />
+            <Button x:Name="Cancel"
+                Text="Отмена" 
+                Clicked="OnCancelBtnlicked"
+                SemanticProperties.Hint="Back to MainPage"
+                HorizontalOptions="Fill" />  
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

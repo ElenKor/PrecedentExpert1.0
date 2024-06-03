@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:PrecedentExpert.ViewModels.AddPrecedentForObject;assembly=PrecedentExpert"
+             x:Class="PrecedentExpert.Views.AddSituationVariableView">
+    <ScrollView>
+        <VerticalStackLayout
+            Padding="30,0"
+            Spacing="25">
+            <Image
+                Source="logotype2.png"
+                HeightRequest="185"
+                Aspect="AspectFit"
+                SemanticProperties.Description="dot net bot in a race car number eight" />
+
+            <Label
+                Text="Добавление прецедента"
+                Style="{StaticResource Headline}"
+                SemanticProperties.HeadingLevel="Level1" />
+
+            <Label
+                Text="Укажите какие значения принимают параметры ситуации"
+                Style="{StaticResource SubHeadline}"
+                SemanticProperties.HeadingLevel="Level2" />
+
+              <!-- Форма для заполнения значений параметров ситуации-->
+            <CollectionView ItemsSource="{Binding UserInputs}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <VerticalStackLayout Padding="10">
+                            <Label Text="{Binding Name}" FontAttributes="Bold" />
+                            <Entry Text="{Binding Value, Mode=TwoWay}" Keyboard="Numeric" />
+                        </VerticalStackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            
+            <Button
+                x:Name="AddSituationVariable"
+                Text="Далее" 
+                Command="{Binding AddSituationVariableCommand}"
+                SemanticProperties.Hint="Save situation variable data"
+                HorizontalOptions="Fill" />
+            <Button
+                x:Name="Back"
+                Text="Назад" 
+                Clicked="OnBackBtnlicked"
+                SemanticProperties.Hint="Back to MainPage"
+                HorizontalOptions="Fill" />  
+            <Button x:Name="Cancel"
+                Text="Отмена" 
+                Clicked="OnCancelBtnlicked"
+                SemanticProperties.Hint="Back to MainPage"
+                HorizontalOptions="Fill" />  
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

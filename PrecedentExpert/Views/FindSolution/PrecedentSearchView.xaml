@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:PrecedentExpert.ViewModels;assembly=PrecedentExpert"
+             x:Class="PrecedentExpert.Views.PrecedentSearchView">
+    <ScrollView>
+        <VerticalStackLayout
+            Padding="30,0"
+            Spacing="25">
+            <Image
+                Source="logotype2.png"
+                HeightRequest="185"
+                Aspect="AspectFit"
+                SemanticProperties.Description="dot net bot in a race car number eight" />
+
+            <Label
+                Text="Выберите метрику"
+                Style="{StaticResource Headline}"
+                SemanticProperties.HeadingLevel="Level1" />
+
+            <Picker Title="Метрика не выбрана"
+            ItemsSource="{Binding Metrics}"
+            SelectedItem="{Binding SelectedMetric, Mode=TwoWay}">
+            </Picker>
+
+            <CollectionView ItemsSource="{Binding Metrics}" 
+                            SelectionMode="Single" 
+                            SelectedItem="{Binding SelectedMetric, Mode=TwoWay}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout Padding="10">
+                            <Label Text="{Binding .}" />
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Label
+                Text="Укажите какие значения принимают параметры ситуации"
+                Style="{StaticResource SubHeadline}"
+                SemanticProperties.HeadingLevel="Level2" />
+
+            <!-- Форма для заполнения значений параметров ситуации-->
+            <CollectionView ItemsSource="{Binding UserInputs}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <VerticalStackLayout Padding="10">
+                            <Label Text="{Binding Name}" FontAttributes="Bold" />
+                            <Entry Text="{Binding Value, Mode=TwoWay}" Keyboard="Numeric" />
+                        </VerticalStackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        
+            <Button
+                x:Name="FindSolution"
+                Text="Найти решение" 
+                Command="{Binding FindSolutionCommand}"
+                SemanticProperties.Hint="Find solution for situation"
+                HorizontalOptions="Fill" /> 
+            <Button
+                x:Name="Back"
+                Text="Назад" 
+                Clicked="OnBackBtnlicked"
+                SemanticProperties.Hint="Back to Preveious Page "
+                HorizontalOptions="Fill" /> 
+            <Button x:Name="Cancel"
+                Text="Отмена" 
+                Clicked="OnCancelBtnlicked"
+                SemanticProperties.Hint="Back to MainPage"
+                HorizontalOptions="Fill" />  
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
+
+
+
